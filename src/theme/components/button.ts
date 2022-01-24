@@ -5,6 +5,7 @@ export const Button = {
     borderRadius: "8px",
     padding: "0px 20px",
     fontSize: "16px",
+    w: "100%",
   },
   sizes: {
     md: {

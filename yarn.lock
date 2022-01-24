@@ -1081,7 +1081,7 @@
     "@chakra-ui/react-utils" "1.2.1"
     "@chakra-ui/utils" "1.9.1"
 
-"@chakra-ui/anatomy@1.2.1":
+"@chakra-ui/anatomy@1.2.1", "@chakra-ui/anatomy@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@chakra-ui/anatomy/-/anatomy-1.2.1.tgz#a2336133ef19817eb062459c37fb909e18ce7fca"
   integrity sha512-kNS+FiEDTSnwpQUW4dEjZ5745xhkvB0XtmqjY1wpclUSpFfptLZM9QIHPTnBt2bzM9R+idmRRP+WkTt6kyTrLw==
