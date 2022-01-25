@@ -2,9 +2,9 @@ import { Box, Center, Grid, Image, Text } from "@chakra-ui/react";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import logo from "../../assets/logo.svg";
 
-export const LoginInfo = () => {
+export const SignupInfo = () => {
   return (
-    <Grid ml="50px" mb="140px">
+    <Grid mr="100px" mb="160px">
       <Image src={logo} alt="logo" />
       <Box
         display="flex"

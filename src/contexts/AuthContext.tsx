@@ -23,7 +23,7 @@ interface AuthState {
 }
 
 interface SignInCredentials {
-  name: string;
+  email: string;
   password: string;
 }
 
@@ -57,8 +57,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ name, password }: SignInCredentials) => {
-    const response = await api.post("/login", { name, password });
+  const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
+    const response = await api.post("/login", { email, password });
 
     const { accessToken, user } = response.data;
 

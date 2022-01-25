@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Text, VStack } from "@chakra-ui/react";
+import { Button, Flex, Grid, Text, VStack } from "@chakra-ui/react";
 import {
   DeepMap,
   FieldError,
@@ -8,21 +8,20 @@ import {
 import { useHistory } from "react-router-dom";
 import { CustomInput } from "../../components/Form/Input";
 
-interface LoginFormProps {
+interface SignupFormProps {
   handleSignIn: () => void;
   errors: DeepMap<FieldValues, FieldError>;
   register: UseFormRegister<FieldValues>;
   loading: boolean;
 }
 
-export const LoginForm = ({
+export const SignupForm = ({
   handleSignIn,
   errors,
   register,
   loading,
-}: LoginFormProps) => {
+}: SignupFormProps) => {
   const history = useHistory();
-
   return (
     <Grid
       as="form"
@@ -31,9 +30,28 @@ export const LoginForm = ({
       border="2px solid #F5F5F5"
       borderRadius="5px"
       padding="26px 24px"
+      w="500px"
     >
-      <Text textStyle="h3">Login</Text>
+      <Flex justifyContent="space-between">
+        <Text textStyle="h3">Cadastrar</Text>
+        <Text
+          textStyle="body"
+          color="gray.300"
+          textDecoration="underline"
+          onClick={() => history.push("/")}
+          cursor="pointer"
+        >
+          retornar para o login
+        </Text>
+      </Flex>
       <VStack spacing="6" mt="4">
+        <CustomInput
+          type="text"
+          floating={true}
+          label="Nome"
+          error={errors.name}
+          {...register("name")}
+        />
         <CustomInput
           type="text"
           floating={true}
@@ -48,20 +66,15 @@ export const LoginForm = ({
           error={errors.password}
           {...register("password")}
         />
+        <CustomInput
+          type="password"
+          floating={true}
+          label="Confirmar Senha"
+          error={errors.confirm_password}
+          {...register("confirm_password")}
+        />
 
-        <Button size="lg" type="submit" isLoading={loading}>
-          Logar
-        </Button>
-        <Box textAlign="center" px="86px">
-          <Text textStyle="body" color="gray.50">
-            Crie sua conta para saborear muitas delícias e<br /> matar sua fome!
-          </Text>
-        </Box>
-        <Button
-          variant="disable"
-          size="lg"
-          onClick={() => history.push("/signup")}
-        >
+        <Button variant="disable" size="lg" type="submit" isLoading={loading}>
           Cadastrar
         </Button>
       </VStack>

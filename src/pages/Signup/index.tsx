@@ -4,59 +4,69 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import { useAuth } from "../../contexts/AuthContext";
 
-import { LoginInfo } from "./LoginInfo";
-import { LoginForm } from "./LoginForm";
+import { SignupInfo } from "./SignupInfo";
+import { SignupForm } from "./SignupForm";
+import { api } from "../../services/api";
 import { useHistory } from "react-router-dom";
 
-const loginSchema = yup.object().shape({
+const SignupSchema = yup.object().shape({
+  name: yup.string().required("Nome obrigatório"),
   email: yup
     .string()
     .required("Email obrigatório")
     .email("Digite um email válido"),
   password: yup.string().required("Senha obrigatória"),
+  confirm_password: yup
+    .string()
+    .required("Confirmação de senha obrigatória")
+    .oneOf([yup.ref("password")], "Senhas diferentes"),
 });
 
-interface LoginData {
+interface SignupData {
+  name: string;
   email: string;
   password: string;
 }
 
-export const Login = () => {
+export const Signup = () => {
   const [loading, setLoading] = useState(false);
-  const { signIn } = useAuth();
-  const toast = useToast();
-  const history = useHistory();
+
   const {
     formState: { errors },
     register,
     handleSubmit,
   } = useForm({
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(SignupSchema),
   });
 
-  const handleLogin = (data: LoginData) => {
+  const toast = useToast();
+  const history = useHistory();
+
+  const handleSignup = ({ name, email, password }: SignupData) => {
     setLoading(true);
-    signIn(data)
+
+    api
+      .post("/register", { name, email, password })
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         setLoading(false);
         toast({
-          title: "Bem vindo de volta!!",
-          description: "Pode matar sua fome",
+          title: "Conta criada com sucesso!",
+          description:
+            "sua conta foi criada com sucesso, pode efetuar seu login",
           status: "success",
           duration: 9000,
           isClosable: true,
         });
-        history.push("/dashboard");
+        history.push("/");
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
         toast({
-          title: "Email ou senha incorretos",
-          description: "Por favor, tente  novamente ou efetue seu cadastro",
+          title: "Email já cadastrado",
+          description: "Por favor, tente  outro email",
           status: "error",
           duration: 9000,
           isClosable: true,
@@ -66,14 +76,13 @@ export const Login = () => {
 
   return (
     <Flex alignItems="center" justifyContent="center" height="100vh">
-      <LoginForm
+      <SignupInfo />
+      <SignupForm
         errors={errors}
-        handleSignIn={handleSubmit(handleLogin as any)}
+        handleSignIn={handleSubmit(handleSignup as any)}
         loading={loading}
         register={register}
       />
-
-      <LoginInfo />
     </Flex>
   );
 };
