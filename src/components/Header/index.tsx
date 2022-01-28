@@ -5,10 +5,12 @@ import { CustomInput } from "../Form/Input";
 import { FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
 import { useAuth } from "../../contexts/AuthContext";
 import { ModalCart } from "../Modal/ModalCart";
+import { useCart } from "../../contexts/Cart/CartContext";
 
 export const Header = () => {
   const { signOut } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { cart } = useCart();
   return (
     <>
       <ModalCart isOpen={isOpen} onClose={onClose} />
@@ -44,7 +46,7 @@ export const Header = () => {
               paddingX="6px"
               paddingY="2px"
             >
-              {"5"}
+              {cart.length}
             </Center>
           </Center>
           <Center as="button" onClick={signOut}>

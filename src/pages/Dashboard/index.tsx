@@ -3,17 +3,20 @@ import { useEffect } from "react";
 import { Card } from "../../components/Card";
 import { Header } from "../../components/Header";
 import { ModalCart } from "../../components/Modal/ModalCart";
-import { useAuth } from "../../contexts/AuthContext";
 import { useProducts } from "../../contexts/Products/ProductsContext";
+import { useCart } from "../../contexts/Cart/CartContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 export const Dashboard = () => {
-  const { accessToken } = useAuth();
+  const { user, accessToken } = useAuth();
   const { products, loadProducts } = useProducts();
+  const { loadCart } = useCart();
   const { isOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    loadProducts(accessToken);
-  });
+    loadProducts();
+    loadCart(user.id, accessToken);
+  }, [accessToken, loadCart, loadProducts, user.id]);
 
   return (
     <Box>

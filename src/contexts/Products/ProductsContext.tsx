@@ -21,7 +21,7 @@ interface Product {
 
 interface ProductsProviderData {
   products: Product[];
-  loadProducts: (accessToken: string) => Promise<void>;
+  loadProducts: () => Promise<void>;
 }
 
 const ProductsContext = createContext<ProductsProviderData>(
@@ -30,11 +30,14 @@ const ProductsContext = createContext<ProductsProviderData>(
 
 export const ProductsProvider = ({ children }: ProductsProvidersProps) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const loadProducts = useCallback(async (accessToken: string) => {
+
+  const loadProducts = useCallback(async () => {
     try {
       const response = await api.get("/products", {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${localStorage.getItem(
+            "@BurgueKenzie:accessToken"
+          )}`,
         },
       });
       setProducts(response.data);

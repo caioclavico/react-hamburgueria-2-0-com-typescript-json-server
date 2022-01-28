@@ -1,4 +1,14 @@
-import { Box, Button, Center, Flex, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Image,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import { useAuth } from "../../contexts/AuthContext";
+import { useCart } from "../../contexts/Cart/CartContext";
 import formatValue from "../../utils/formatvalue";
 
 interface CardProps {
@@ -9,6 +19,19 @@ interface CardProps {
 }
 
 export const Card = ({ name, category, price, img }: CardProps) => {
+  const { accessToken, user } = useAuth();
+  const { cart, addProduct } = useCart();
+  const toast = useToast();
+
+  const newProduct = {
+    name,
+    category,
+    price,
+    img,
+    userId: user.id,
+    quantity: 1,
+  };
+
   return (
     <Box
       cursor="pointer"
@@ -33,7 +56,30 @@ export const Card = ({ name, category, price, img }: CardProps) => {
           {formatValue(price)}
         </Text>
         <Box>
-          <Button>Adicionar</Button>
+          <Button
+            onClick={() => {
+              if (!cart.find((product) => product.name === name)) {
+                addProduct(newProduct, accessToken).then((_) => {
+                  toast({
+                    title: "Item adicionado ao seu carrinho!",
+                    description: "Continue comprando!!",
+                    status: "success",
+                    duration: 9000,
+                    isClosable: true,
+                  });
+                });
+              } else {
+                toast({
+                  title: "Este item já está no seu carrinho",
+                  status: "error",
+                  duration: 9000,
+                  isClosable: true,
+                });
+              }
+            }}
+          >
+            Adicionar
+          </Button>
         </Box>
       </Flex>
     </Box>
