@@ -65,7 +65,12 @@ export const Login = () => {
   };
 
   return (
-    <Flex alignItems="center" justifyContent="center" height="100vh">
+    <Flex
+      alignItems="center"
+      justifyContent={["flex-end", "flex-end", "center", "center"]}
+      height="100vh"
+      flexDirection={["column-reverse", "column-reverse", "row", "row"]}
+    >
       <LoginForm
         errors={errors}
         handleSignIn={handleSubmit(handleLogin as any)}

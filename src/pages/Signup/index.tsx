@@ -75,7 +75,12 @@ export const Signup = () => {
   };
 
   return (
-    <Flex alignItems="center" justifyContent="center" height="100vh">
+    <Flex
+      alignItems="center"
+      justifyContent={["flex-start", "flex-start", "center", "center"]}
+      height="100vh"
+      flexDirection={["column", "column", "row", "row"]}
+    >
       <SignupInfo />
       <SignupForm
         errors={errors}

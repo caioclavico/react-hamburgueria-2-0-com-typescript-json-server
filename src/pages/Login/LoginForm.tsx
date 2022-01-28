@@ -52,7 +52,7 @@ export const LoginForm = ({
         <Button size="lg" type="submit" isLoading={loading}>
           Logar
         </Button>
-        <Box textAlign="center" px="86px">
+        <Box textAlign="center" px={["10px", "10px", "86px", "86px"]}>
           <Text textStyle="body" color="gray.50">
             Crie sua conta para saborear muitas delícias e<br /> matar sua fome!
           </Text>

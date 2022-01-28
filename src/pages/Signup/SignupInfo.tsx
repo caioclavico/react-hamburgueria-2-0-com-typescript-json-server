@@ -4,8 +4,13 @@ import logo from "../../assets/logo.svg";
 
 export const SignupInfo = () => {
   return (
-    <Grid mr="100px" mb="160px">
-      <Image src={logo} alt="logo" />
+    <Grid
+      mr={["0px", "0px", "100px", "100px"]}
+      mb={["0px", "0px", "160px", "160px"]}
+      mt={["20px", "20px", "0px", "0px"]}
+      ml={["0px", "0px", "24px", "24px"]}
+    >
+      <Image src={logo} alt="logo" ml={["20px", "20px", "0px", "0px"]} />
       <Box
         display="flex"
         flexDirection="row"
@@ -14,6 +19,7 @@ export const SignupInfo = () => {
         border="1px solid #E0E0E0"
         borderRadius="5px"
         mt="30px"
+        marginX={["10px", "10px", "0px", "0px"]}
       >
         <Center bgColor="#27ae6019" w="60px" h="60px" borderRadius="5px">
           <MdOutlineShoppingBag color="#219653" />

@@ -1,8 +1,14 @@
-import { Center, Flex, Icon, Image, useDisclosure } from "@chakra-ui/react";
-import { MdSearch } from "react-icons/md";
+import {
+  Center,
+  Flex,
+  Icon,
+  Image,
+  useDisclosure,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import logo from "../../assets/logo.svg";
 import { CustomInput } from "../Form/Input";
-import { FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
+import { FaSearch, FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
 import { useAuth } from "../../contexts/AuthContext";
 import { ModalCart } from "../Modal/ModalCart";
 import { useCart } from "../../contexts/Cart/CartContext";
@@ -11,6 +17,8 @@ export const Header = () => {
   const { signOut } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { cart } = useCart();
+
+  const [isLargerThan580] = useMediaQuery("(min-width: 580px)");
   return (
     <>
       <ModalCart isOpen={isOpen} onClose={onClose} />
@@ -22,13 +30,19 @@ export const Header = () => {
         justifyContent="space-between"
       >
         <Image src={logo} alt="logo" w="150px" />
-        <Flex gap={6}>
-          <CustomInput
-            label="Digitar pesquisa"
-            name="pesquisar"
-            icon={MdSearch}
-            ml="auto"
-          />
+        <Flex gap={6} height="60px">
+          {isLargerThan580 ? (
+            <CustomInput
+              label="Digitar pesquisa"
+              name="pesquisar"
+              icon={FaSearch}
+              ml="auto"
+            />
+          ) : (
+            <Center>
+              <Icon as={FaSearch} color="gray.300" boxSize={6} />
+            </Center>
+          )}
           <Center position="relative" as="button" onClick={onOpen}>
             <Icon as={FaShoppingCart} color="gray.300" boxSize={6} />
 

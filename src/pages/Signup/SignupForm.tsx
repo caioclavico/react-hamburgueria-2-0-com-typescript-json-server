@@ -30,7 +30,8 @@ export const SignupForm = ({
       border="2px solid #F5F5F5"
       borderRadius="5px"
       padding="26px 24px"
-      w="500px"
+      w={["100%", "100%", "500px", "500px"]}
+      maxWidth="500px"
     >
       <Flex justifyContent="space-between">
         <Text textStyle="h3">Cadastrar</Text>
